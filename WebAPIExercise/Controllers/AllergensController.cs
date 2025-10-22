@@ -39,5 +39,12 @@ namespace WebApiExercise.Controllers
 
             return Ok(result);
         }
+
+        // POST: AllergensControllers
+        [HttpPost]
+        public IActionResult Post([FromBody] Allergen newAllergen)
+        {
+            return Ok(new { success = true, newAllergen });
+        }
     }
 }
