@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebAPIExercise.Models;
+using WebAPIExercise.Services;
 
 namespace WebApiExercise.Controllers
 {
@@ -8,43 +9,34 @@ namespace WebApiExercise.Controllers
     [ApiController]
     public class AllergensController : Controller
     {
-        public List<Allergen> allergenList; //dichiarazione della lista
+        private readonly AllergenService _allergenService;
 
-
-        public AllergensController() //istanziamo la lista nel costruttore
+        public AllergensController(AllergenService allergenService)
         {
-            allergenList = new List<Allergen>()
-            {
-                new Allergen { Id = 1, Name = "Milk"},
-                new Allergen { Id = 2, Name = "Eggs"},
-                new Allergen { Id = 3, Name = "Gluten"}
-            };
+            _allergenService = allergenService;
         }
 
         // GET: AllergensController
         [HttpGet]
-        public IEnumerable<Allergen> Index()
+        public IEnumerable<Allergen> Get()
         {
-            return allergenList;
+            return _allergenService.GetAll();
         }
 
         // GET: AllergensController/search
         [HttpGet("search")]
-        public IActionResult Get(string name)
+        public IActionResult Search(string name)
         {
-            var result = allergenList.FirstOrDefault(a => a.Name == name);
-
-            if (result == null)
-                return NotFound();
-
-            return Ok(result);
+            var result = _allergenService.GetByName(name);
+            return result == null ? NotFound() : Ok(result);
         }
 
         // POST: AllergensControllers
         [HttpPost]
         public IActionResult Post([FromBody] Allergen newAllergen)
         {
-            return Ok(new { success = true, newAllergen });
+            var result = _allergenService.Add(newAllergen);
+            return result == null ? NotFound() : Ok(result);
         }
     }
 }
