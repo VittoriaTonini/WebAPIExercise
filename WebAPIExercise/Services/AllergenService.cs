@@ -50,7 +50,6 @@ namespace WebAPIExercise.Services
 
             if (result != null)
                 result.Name = newAllergen.Name;
-
             return _allergenList;
         }
     }

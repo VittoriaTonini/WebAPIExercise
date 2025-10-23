@@ -11,9 +11,9 @@ namespace WebApiExercise.Controllers
     public class AllergensController : Controller
     {
         private readonly AllergenService _allergenService;
-        private readonly ILogger<AllergenService> _logger;
+        private readonly ILogger<AllergensController> _logger;
 
-        public AllergensController(AllergenService allergenService, ILogger<AllergenService> logger)
+        public AllergensController(AllergenService allergenService, ILogger<AllergensController> logger)
         {
             _allergenService = allergenService;
             _logger = logger;
