@@ -44,5 +44,14 @@ namespace WebAPIExercise.Services
                 _allergenList.Remove(result);
             return _allergenList;
         }
+        public IEnumerable<Allergen> ModifyById(int id, Allergen newAllergen)
+        {
+            var result = _allergenList.FirstOrDefault(a => a.Id == id);
+
+            if (result != null)
+                result.Name = newAllergen.Name;
+
+            return _allergenList;
+        }
     }
 }

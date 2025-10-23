@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
+using System.Xml.Linq;
 using WebAPIExercise.Models;
 using WebAPIExercise.Services;
 
@@ -36,6 +38,7 @@ namespace WebApiExercise.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Allergen newAllergen)
         {
+            _logger.LogInformation("New allergen: {message}", JsonSerializer.Serialize(newAllergen));
             var result = _allergenService.Add(newAllergen);
             return result == null ? NotFound() : Ok(result);
         }
@@ -44,7 +47,17 @@ namespace WebApiExercise.Controllers
         [HttpDelete]
         public IActionResult Delete(string name)
         {
+            _logger.LogInformation("Deleted allergen's name: {message}", JsonSerializer.Serialize(name));
             var result = _allergenService.DeleteByName(name);
+            return result == null ? NotFound() : Ok(result);
+        }
+
+        //PUT: api/AllergensController/put
+        [HttpPut]
+        public IActionResult Put(int id, Allergen newAllergen)
+        {
+            _logger.LogInformation("Modified allergen's id: {message}", JsonSerializer.Serialize(id));
+            var result = _allergenService.ModifyById(id, newAllergen);
             return result == null ? NotFound() : Ok(result);
         }
     }
