@@ -1,5 +1,6 @@
 using WebApiExercise.Endpoints;
 using WebAPIExercise.Services;
+using WebAPIExercise.Services.Interfaces;
 
 namespace WebAPIExercise
 {
@@ -13,6 +14,7 @@ namespace WebAPIExercise
             builder.Services.AddAuthorization();
             builder.Services.AddEndpointsApiExplorer(); //lo utilizziamo per far funzionare gli endpoints
             builder.Services.AddControllers(); //lo utilizziamo per far funzionare i controllers
+            builder.Services.AddSingleton<IDishService, DishService>();
             builder.Services.AddSingleton<AllergenService>(); //registriamo il service come singleton, affinché rimanga in memoria finché l'app gira
             builder.Services.AddSwaggerGen(); //lo utilizziamo per usare swagger
 
