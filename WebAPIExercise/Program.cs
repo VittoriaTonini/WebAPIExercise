@@ -1,3 +1,4 @@
+using Serilog;
 using WebApiExercise.Endpoints;
 using WebAPIExercise.Services;
 using WebAPIExercise.Services.Interfaces;
@@ -9,6 +10,9 @@ namespace WebAPIExercise
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            // Serilog setup
+            builder.Host.UseSerilog((context, config) => config.ReadFrom.Configuration(context.Configuration));
 
             // Add services to the container.
             builder.Services.AddAuthorization();

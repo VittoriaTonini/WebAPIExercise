@@ -20,7 +20,7 @@ namespace WebAPIExercise.Services
             return _allergenList;
         }
 
-        public Allergen GetByName(string name)
+        public Allergen? GetByName(string name)
         {
             var result = _allergenList.FirstOrDefault(a => a.Name == name);
             
@@ -33,6 +33,15 @@ namespace WebAPIExercise.Services
         public IEnumerable<Allergen> Add(Allergen newAllergen)
         {
             _allergenList.Add(newAllergen);
+            return _allergenList;
+        }
+
+        public IEnumerable<Allergen> DeleteByName(string name)
+        {
+            var result = _allergenList.FirstOrDefault(a => a.Name == name);
+
+            if (result != null)
+                _allergenList.Remove(result);
             return _allergenList;
         }
     }

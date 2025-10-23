@@ -16,7 +16,7 @@ namespace WebApiExercise.Endpoints
 
         static Results<Ok<List<Dish>>, NotFound, ProblemHttpResult> Get(IDishService service) //l'interfaccia come parametro ci serve per la method injection
         {
-            var result = service.Get(); //method injection
+            var result = service.Get();
             return result == null ? TypedResults.NotFound() : TypedResults.Ok(result); ;
         }
 
